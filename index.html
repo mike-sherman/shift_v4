@@ -1,0 +1,561 @@
+<html>
+<head>
+
+<LINK REL="stylesheet" HREF="mike_shift.css" TYPE="text/css">
+<meta name="description" content="Bike Bicycle Gear Gearing Designer Calculator Graph" />
+<script type="text/javascript" src="wz_jsgraphics.js"></script>
+<script type="text/javascript" src="shift.js"></script>
+<script type="text/javascript" src="shiftInputs.js"></script>
+<script type="text/javascript" src="shiftReadDisplay.js"></script>
+<script type="text/javascript" src="shiftUpdateDisplay.js"></script>
+<script type="text/javascript" src="shiftGearChart.js"></script>
+<script type="text/javascript" src="shiftLogChart.js"></script>
+<script type="text/javascript" src="shiftSpeedChart.js"></script>
+<script type="text/javascript" src="shiftSpeedTable.js"></script>
+<script type="text/javascript" src="shiftSheldon.js"></script>
+<script type="text/javascript" src="shiftRollout.js"></script>
+<script type="text/javascript" src="shiftWheels.js"></script>
+<script type="text/javascript" src="shiftCassettes.js"></script>
+<script type="text/javascript" src="shiftCookies.js"></script>
+<script type="text/javascript" src="shiftBookmarks.js"></script>
+<title>Mike Sherman's Bicycle Gear Calculator </title>
+<!-- See shift.js for revision information -->
+</head>
+
+<body onload="initGears()">
+
+<FORM NAME="mainForm">
+
+<!-- beginning of cog value table -->
+<center>
+<TABLE border=1>
+
+<TR>
+  <TD ALIGN=CENTER COLSPAN=11>
+	Mike's Bicycle Gear Calculator - 
+  	<B><FONT SIZE="+1">Title</FONT></B>
+   	<input type="text" name="pageTitle" size=40 onchange="readTitle()">
+  </TD>
+</TR>
+<TR>
+  <TD ALIGN=CENTER COLSPAN=11>
+  	<B><FONT SIZE="+1">Cassette</FONT></B>
+  </TD>
+<TR>
+  <!-- default cogs = my Mariposa -->
+  <TD ALIGN=CENTER><INPUT TYPE=text NAME="cog0" SIZE=2 VALUE=12 onchange="readCogs()" onmouseover="gearHighlight('0')" onmouseout="gearHighlight('99')">
+    </TD>
+  <TD ALIGN=CENTER><INPUT TYPE=text NAME="cog1" SIZE=2 VALUE=13 onchange="readCogs()" onmouseover="gearHighlight('1')" onmouseout="gearHighlight('99')">
+    </TD>
+  <TD ALIGN=CENTER><INPUT TYPE=text NAME="cog2" SIZE=2 VALUE=14 onchange="readCogs()" onmouseover="gearHighlight('2')" onmouseout="gearHighlight('99')">
+    </TD>
+  <TD ALIGN=CENTER><INPUT TYPE=text NAME="cog3" SIZE=2 VALUE=15 onchange="readCogs()" onmouseover="gearHighlight('3')" onmouseout="gearHighlight('99')">
+    </TD>
+  <TD ALIGN=CENTER><INPUT TYPE=text NAME="cog4" SIZE=2 VALUE=16 onchange="readCogs()" onmouseover="gearHighlight('4')" onmouseout="gearHighlight('99')">
+    </TD>
+  <TD ALIGN=CENTER><INPUT TYPE=text NAME="cog5" SIZE=2 VALUE=17 onchange="readCogs()" onmouseover="gearHighlight('5')" onmouseout="gearHighlight('99')">
+    </TD>
+  <TD ALIGN=CENTER><INPUT TYPE=text NAME="cog6" SIZE=2 VALUE=19 onchange="readCogs()" onmouseover="gearHighlight('6')" onmouseout="gearHighlight('99')">
+    </TD>
+  <TD ALIGN=CENTER><INPUT TYPE=text NAME="cog7" SIZE=2 VALUE=21 onchange="readCogs()" onmouseover="gearHighlight('7')" onmouseout="gearHighlight('99')">
+    </TD>
+  <TD ALIGN=CENTER><INPUT TYPE=text NAME="cog8" SIZE=2 VALUE=23 onchange="readCogs()" onmouseover="gearHighlight('8')" onmouseout="gearHighlight('99')">
+    </TD>
+  <TD ALIGN=CENTER><INPUT TYPE=text NAME="cog9" SIZE=2 VALUE=25 onchange="readCogs()" onmouseover="gearHighlight('9')" onmouseout="gearHighlight('99')">
+    </TD>
+  <TD ALIGN=CENTER><INPUT TYPE=text NAME="cog10" SIZE=2 VALUE=999 onchange="readCogs()" onmouseover="gearHighlight('10')" onmouseout="gearHighlight('99')">
+    </TD>
+</TR>
+<TR>
+  <TD ALIGN=CENTER COLSPAN=1>
+   <INPUT TYPE="button" VALUE=" - "  onClick="cogMinus('cog0')" onmouseover="gearHighlight('0')" onmouseout="gearHighlight('99')">
+   <INPUT TYPE="button" VALUE=" + "  onClick="cogPlus('cog0')" onmouseover="gearHighlight('0')" onmouseout="gearHighlight('99')"><br>
+   <INPUT TYPE="button" VALUE="  X  " onClick="cogX('cog0')" onmouseover="gearHighlight('0')" onmouseout="gearHighlight('99')"></TD>
+  <TD ALIGN=CENTER COLSPAN=1>
+   <INPUT TYPE="button" VALUE=" - "  onClick="cogMinus('cog1')" onmouseover="gearHighlight('1')" onmouseout="gearHighlight('99')">
+   <INPUT TYPE="button" VALUE=" + "  onClick="cogPlus('cog1')" onmouseover="gearHighlight('1')" onmouseout="gearHighlight('99')"><br>
+   <INPUT TYPE="button" VALUE="  X  "  onClick="cogX('cog1')" onmouseover="gearHighlight('1')" onmouseout="gearHighlight('99')"></TD>
+  <TD ALIGN=CENTER COLSPAN=1>
+   <INPUT TYPE="button" VALUE=" - "  onClick="cogMinus('cog2')" onmouseover="gearHighlight('2')" onmouseout="gearHighlight('99')">
+   <INPUT TYPE="button" VALUE=" + "  onClick="cogPlus('cog2')" onmouseover="gearHighlight('2')" onmouseout="gearHighlight('99')"><br>
+   <INPUT TYPE="button" VALUE="  X  "  onClick="cogX('cog2')" onmouseover="gearHighlight('2')" onmouseout="gearHighlight('99')"></TD>
+  <TD ALIGN=CENTER COLSPAN=1>
+   <INPUT TYPE="button" VALUE=" - "  onClick="cogMinus('cog3')" onmouseover="gearHighlight('3')" onmouseout="gearHighlight('99')">
+   <INPUT TYPE="button" VALUE=" + "  onClick="cogPlus('cog3')" onmouseover="gearHighlight('3')" onmouseout="gearHighlight('99')"><br>
+   <INPUT TYPE="button" VALUE="  X  "  onClick="cogX('cog3')" onmouseover="gearHighlight('3')" onmouseout="gearHighlight('99')"></TD>
+  <TD ALIGN=CENTER COLSPAN=1>
+   <INPUT TYPE="button" VALUE=" - "  onClick="cogMinus('cog4')" onmouseover="gearHighlight('4')" onmouseout="gearHighlight('99')">
+   <INPUT TYPE="button" VALUE=" + "  onClick="cogPlus('cog4')" onmouseover="gearHighlight('4')" onmouseout="gearHighlight('99')"><br>
+   <INPUT TYPE="button" VALUE="  X  "  onClick="cogX('cog4')" onmouseover="gearHighlight('4')" onmouseout="gearHighlight('99')"></TD>
+  <TD ALIGN=CENTER COLSPAN=1>
+   <INPUT TYPE="button" VALUE=" - "  onClick="cogMinus('cog5')" onmouseover="gearHighlight('5')" onmouseout="gearHighlight('99')">
+   <INPUT TYPE="button" VALUE=" + "  onClick="cogPlus('cog5')" onmouseover="gearHighlight('5')" onmouseout="gearHighlight('99')"><br>
+   <INPUT TYPE="button" VALUE="  X  "  onClick="cogX('cog5')" onmouseover="gearHighlight('5')" onmouseout="gearHighlight('99')"></TD>
+  <TD ALIGN=CENTER COLSPAN=1>
+   <INPUT TYPE="button" VALUE=" - "  onClick="cogMinus('cog6')" onmouseover="gearHighlight('6')" onmouseout="gearHighlight('99')">
+   <INPUT TYPE="button" VALUE=" + "  onClick="cogPlus('cog6')" onmouseover="gearHighlight('6')" onmouseout="gearHighlight('99')"><br>
+   <INPUT TYPE="button" VALUE="  X  "  onClick="cogX('cog6')" onmouseover="gearHighlight('6')" onmouseout="gearHighlight('99')"></TD>
+  <TD ALIGN=CENTER COLSPAN=1>
+   <INPUT TYPE="button" VALUE=" - "  onClick="cogMinus('cog7')" onmouseover="gearHighlight('7')" onmouseout="gearHighlight('99')">
+   <INPUT TYPE="button" VALUE=" + "  onClick="cogPlus('cog7')" onmouseover="gearHighlight('7')" onmouseout="gearHighlight('99')"><br>
+   <INPUT TYPE="button" VALUE="  X  "  onClick="cogX('cog7')" onmouseover="gearHighlight('7')" onmouseout="gearHighlight('99')"></TD>
+  <TD ALIGN=CENTER COLSPAN=1>
+   <INPUT TYPE="button" VALUE=" - "  onClick="cogMinus('cog8')" onmouseover="gearHighlight('8')" onmouseout="gearHighlight('99')">
+   <INPUT TYPE="button" VALUE=" + "  onClick="cogPlus('cog8')" onmouseover="gearHighlight('8')" onmouseout="gearHighlight('99')"><br>
+   <INPUT TYPE="button" VALUE="  X  "  onClick="cogX('cog8')" onmouseover="gearHighlight('8')" onmouseout="gearHighlight('99')"></TD>
+  <TD ALIGN=CENTER COLSPAN=1>
+   <INPUT TYPE="button" VALUE=" - "  onClick="cogMinus('cog9')" onmouseover="gearHighlight('9')" onmouseout="gearHighlight('99')">
+   <INPUT TYPE="button" VALUE=" + "  onClick="cogPlus('cog9')" onmouseover="gearHighlight('9')" onmouseout="gearHighlight('99')"><br>
+   <INPUT TYPE="button" VALUE="  X  "  onClick="cogX('cog9')" onmouseover="gearHighlight('9')" onmouseout="gearHighlight('99')"></TD>
+  <TD ALIGN=CENTER COLSPAN=1>
+   <INPUT TYPE="button" VALUE=" - "  onClick="cogMinus('cog10')" onmouseover="gearHighlight('10')" onmouseout="gearHighlight('99')">
+   <INPUT TYPE="button" VALUE=" + "  onClick="cogPlus('cog10')" onmouseover="gearHighlight('10')" onmouseout="gearHighlight('99')"><br>
+   <INPUT TYPE="button" VALUE="  X  "  onClick="cogX('cog10')" onmouseover="gearHighlight('10')" onmouseout="gearHighlight('99')"></TD>
+</TR>
+<TR>
+  <TD COLSPAN=5 align=center>
+  Required Rear Derailleur 
+  <a href="http://sheldonbrown.com/gloss_ca-g.html#capacity" target="_blank">Capacity</a>: 
+  <INPUT TYPE=text NAME="rearcap" SIZE=2 style="border: none" readonly>
+
+  </TD>
+  <TD COLSPAN=6 ALIGN=RIGHT>
+    <SELECT NAME="cassette" onChange="selectCassette()">
+     <OPTION value="0">Select a Cassette
+     <OPTION value="1">My touring bike 5 speed 13-30
+     <OPTION value="0">-----------------
+     <OPTION value="105">5 Speed Freewheel 14-18
+     <OPTION value="106">5 Speed Freewheel 14-22
+     <OPTION value="107">5 Speed Freewheel 14-24
+     <OPTION value="108">5 Speed Freewheel 14-26
+     <OPTION value="109">5 Speed Freewheel 14-28
+     <OPTION value="110">5 Speed Freewheel 14-32
+     <OPTION value="111">5 Speed Freewheel 14-34
+     <OPTION value="112">5 Speed Freewheel 13-17
+     <OPTION value="113">5 Speed Freewheel 13-18
+     <OPTION value="114">5 Speed Freewheel 13-22
+     <OPTION value="115">5 Speed Freewheel 13-24
+     <OPTION value="116">5 Speed Freewheel 13-26
+     <OPTION value="117">5 Speed Freewheel 13-28
+     <OPTION value="118">5 Speed Freewheel 13-32
+     <OPTION value="119">5 Speed Freewheel 13-34
+     <OPTION value="130">IRD 5 Speed Freewheel 13-24
+     <OPTION value="131">IRD 5 Speed Freewheel 13-28
+     <OPTION value="132">IRD 5 Speed Freewheel 13-32
+     <OPTION value="133">IRD 5 Speed Freewheel 14-28
+     <OPTION value="0">-----------------
+     <OPTION value="2">Sachs 6 Speed Freewheel 13-18
+     <OPTION value="3">Sachs 6 Speed Freewheel 13-21
+     <OPTION value="4">Sachs 6 Speed Freewheel 13-24
+     <OPTION value="5">Sachs 6 Speed Freewheel 13-26
+     <OPTION value="6">Sachs 6 Speed Freewheel 13-28
+     <OPTION value="134">IRD 6 Speed Freewheel 13-24
+     <OPTION value="135">IRD 6 Speed Freewheel 13-28
+     <OPTION value="136">IRD 6 Speed Freewheel 14-32
+     <OPTION value="137">IRD 6 Speed Freewheel 14-34
+     <OPTION value="0">-----------------
+     <OPTION value="7">Sachs 7 speed freewheel 12-19
+     <OPTION value="8">Sachs 7 speed freewheel 12-21
+     <OPTION value="9">Sachs 7 speed freewheel 13-21
+     <OPTION value="10">Sachs 7 speed freewheel 12-24
+     <OPTION value="11">Sachs 7 speed freewheel 13-24
+     <OPTION value="12">Sachs 7 speed freewheel 13-26
+     <OPTION value="13">Sachs 7 speed freewheel 12-28
+     <OPTION value="14">Sachs 7 speed freewheel 13-28
+     <OPTION value="15">Sachs 7 speed freewheel 13-30
+     <OPTION value="16">Sachs 7 speed freewheel 13-32
+     <OPTION value="17">Sunrace 7 speed freewheel 13-28
+     <OPTION value="18">Shimano 7 speed cassette HG 70 11-28
+     <OPTION value="19">Shimano 7 speed cassette HG 90 12-21
+     <OPTION value="20">Shimano 7 speed cassette HG 90 12-28
+     <OPTION value="21">Shimano 7 speed cassette HG 90 13-21
+     <OPTION value="22">Shimano 7 speed cassette HG 90 13-23
+     <OPTION value="23">Shimano 7 speed cassette HG 90 13-26
+     <OPTION value="24">Shimano 7 speed cassette HG 90 13-28
+     <OPTION value="25">Shimano 7 speed cassette HG 90 13-30
+     <OPTION value="26">Shimano 7 speed cassette HG 90 14-32
+     <OPTION value="27">Shimano 7 speed cassette HG 90 13-34
+     <OPTION value="138">IRD 7 Speed Freewheel 13-24
+     <OPTION value="139">IRD 7 Speed Freewheel 13-28
+     <OPTION value="140">IRD 7 Speed Freewheel 13-32 mega
+     <OPTION value="141">IRD 7 Speed Freewheel 13-32
+     <OPTION value="0">-----------------
+     <OPTION value="28">Sachs 8 speed freewheel 12-19
+     <OPTION value="29">Sachs 8 speed freewheel 12-21
+     <OPTION value="30">Sachs 8 speed freewheel 12-24
+     <OPTION value="31">Sachs 8 speed freewheel 12-26
+     <OPTION value="32">Sachs 8 speed freewheel 12-28
+     <OPTION value="33">Sachs 8 speed freewheel 13-28
+     <OPTION value="34">Sachs 8 speed freewheel 12-30
+     <OPTION value="35">Sachs 8 speed freewheel 13-30
+     <OPTION value="36">Sachs 8 speed freewheel 12-32
+     <OPTION value="37">Shimano Deore XT 8 Speed IG Cassette 11-28
+     <OPTION value="38">Shimano Deore XT 8 Speed IG Cassette 11-30
+     <OPTION value="39">Shimano XTR 8sp HG Cassette 12-28
+     <OPTION value="40">Shimano XTR 8sp HG Cassette 12-32
+     <OPTION value="41">Shimano Dura Ace HG 8 spd Cassette 12-21
+     <OPTION value="42">Shimano Dura Ace HG 8 spd Cassette 12-23
+     <OPTION value="43">Shimano Dura Ace HG 8 spd Cassette 12-25
+     <OPTION value="44">Shimano Dura Ace HG 8 spd Cassette 13-23
+     <OPTION value="45">Shimano Dura Ace HG 8 spd Cassette 13-26
+     <OPTION value="46">Shimano HG50 8spd Cassette 12-21
+     <OPTION value="47">Shimano HG50 8spd Cassette 12-23
+     <OPTION value="48">Shimano HG50 8spd Cassette 12-25
+     <OPTION value="49">Shimano HG50 8spd Cassette 13-26
+     <OPTION value="50">Sram 5.0 8 speed Cassette 11-32
+     <OPTION value="51">Sachs 8 speed Quartz Cassette for Sachs Freehubs 11-28
+     <OPTION value="52">Sachs 8 speed Quartz Cassette for Sachs Freehubs 12-32
+     <OPTION value="53">Campagnolo 8 Speed Cassette  12-23
+     <OPTION value="54">Campagnolo 8 Speed Cassette  13-23
+     <OPTION value="55">Campagnolo 8 Speed Cassette  13-26
+     <OPTION value="0">-----------------
+     <OPTION value="56">Sram 7.0 9 Speed Cassette 11-32
+     <OPTION value="142">Sram X5 9 Speed Cassette 11-34
+     <OPTION value="57">Shimano XTR TI 9 speed Cassette Cogs 11-30
+     <OPTION value="58">Shimano XTR TI 9 speed Cassette Cogs 12-2 
+     <OPTION value="59">Shimano XTR 9sp Mega 9 Cassette 12-34
+     <OPTION value="60">Shimano Dura Ace 9 Speed Cassette 11-21
+     <OPTION value="61">Shimano Dura Ace 9 Speed Cassette 11-23
+     <OPTION value="62">Shimano Dura Ace 9 Speed Cassette 12-21
+     <OPTION value="63">Shimano Dura Ace 9 Speed Cassette 12-23
+     <OPTION value="64">Shimano Dura Ace 9 Speed Cassette 12-25
+     <OPTION value="65">Shimano Dura Ace 9 Speed Cassette 12-27
+     <OPTION value="66">Shimano M750 9 speed Cassette 11-32
+     <OPTION value="67">Shimano M750 9 speed Cassette 12-34
+     <OPTION value="68">Shimano M750 9 speed Cassette 11-34
+     <OPTION value="69">Shimano Ultegra 9 speed Cassette 11-21
+     <OPTION value="70">Shimano Ultegra 9 speed Cassette 11-23
+     <OPTION value="71">Shimano Ultegra 9 speed Cassette 12-21
+     <OPTION value="72">Shimano Ultegra 9 speed Cassette 12-23
+     <OPTION value="73">Shimano Ultegra 9 speed Cassette 12-25
+     <OPTION value="74">Shimano Ultegra 9 speed Cassette 12-27
+     <OPTION value="75">Shimano Ultegra 9 speed Cassette 13-23
+     <OPTION value="76">Shimano Ultegra 9 speed Cassette 13-25
+     <OPTION value="77">Shimano Ultegra 9 speed Cassette 14-25
+     <OPTION value="78">Shimano HG70 9 speed Cassette 12-23
+     <OPTION value="79">Shimano HG70 9 speed Cassette 12-25
+     <OPTION value="80">Shimano HG70 9 speed Cassette 13-23
+     <OPTION value="81">Shimano HG70 9 speed Cassette 13-25
+     <OPTION value="82">Shimano HG70 9 speed Cassette 11-32
+     <OPTION value="83">Campagnolo 9 Speed Cassette 11-21
+     <OPTION value="84">Campagnolo 9 Speed Cassette 11-23
+     <OPTION value="85">Campagnolo 9 Speed Cassette 12-21
+     <OPTION value="86">Campagnolo 9 Speed Cassette 12-23
+     <OPTION value="87">Campagnolo 9 Speed Cassette 13-23
+     <OPTION value="88">Campagnolo 9 Speed Cassette 13-26
+     <OPTION value="89">Campagnolo Chorus E d 9 speed Cassette 12-21
+     <OPTION value="90">Campagnolo Chorus E d 9 speed Cassette 12-23
+     <OPTION value="91">Campagnolo Chorus E d 9 speed Cassette 13-23
+     <OPTION value="92">Campagnolo Chorus E d 9 speed Cassette 13-26
+     <OPTION value="93">Campagnolo Veloce Cassette 9 speed 12-21
+     <OPTION value="94">Campagnolo Veloce Cassette 9 speed 11-23
+     <OPTION value="95">Campagnolo Veloce Cassette 9 speed 12-23
+     <OPTION value="96">Campagnolo Veloce Cassette 9 speed 13-23
+     <OPTION value="97">Campagnolo Veloce Cassette 9 speed 13-26
+     <OPTION value="98">Campagnolo Veloce Cassette 9 speed 13-28
+     <OPTION value="0">-----------------
+     <OPTION value="99">Campagnolo 10 speed Cassette 11-21
+     <OPTION value="100">Campagnolo 10 speed Cassette 11-23
+     <OPTION SELECTED value="101">Campagnolo 10 speed Cassette 12-25
+     <OPTION value="102">Campagnolo 10 speed Cassette 13-26
+     <OPTION value="103">Campagnolo 10 speed Cassette 13-29
+     <OPTION value="120">Dura Ace 10 speed Cassette 12-21
+     <OPTION value="121">Dura Ace 10 speed Cassette 11-23
+     <OPTION value="122">Dura Ace 10 speed Cassette 12-23
+     <OPTION value="123">Dura Ace 10 speed Cassette 12-25
+     <OPTION value="124">Dura Ace 10 speed Cassette 13-25
+     <OPTION value="125">Dura Ace 10 speed Cassette 12-27
+     <OPTION value="0">-----------------
+     <OPTION value="126">Campagnolo 11 speed Cassette 11-23
+     <OPTION value="127">Campagnolo 11 speed Cassette 11-25
+     <OPTION value="128">Campagnolo 11 speed Cassette 12-25
+     <OPTION value="129">Campagnolo 11 speed Cassette 12-27
+    </SELECT>
+  </TD>
+</TR>
+</TABLE>
+<!-- end of cog value table -->
+
+<p>
+
+<!-- beginning of chainring value table -->
+<center>
+<TABLE border=1>
+<TR>
+  <TD ALIGN=CENTER COLSPAN=3><FONT SIZE="+1"><B>Chainrings</B></FONT></TD>
+  <TD ALIGN=CENTER><FONT SIZE="+1"><B>Wheel</B></FONT></TD>
+  <TD ALIGN=CENTER><FONT SIZE="+1"><B>Crank</B></FONT></TD>
+</TR>
+<TR>
+  <TD ALIGN=CENTER><INPUT TYPE=text NAME="ring0" SIZE=2 VALUE=24 
+    onchange="readRings()"></TD>
+  <TD ALIGN=CENTER><INPUT TYPE=text NAME="ring1" SIZE=2 VALUE=36 
+    onchange="readRings()"></TD>
+  <TD ALIGN=CENTER><INPUT TYPE=text NAME="ring2" SIZE=2 VALUE=46 
+    onchange="readRings()"></TD>
+
+<!-- beginning of wheel size selection -->
+  <TD> <!-- Largest used wheel value is ?? -->
+    <SELECT NAME="wheel" onChange="readWheel()">
+     <OPTION value="0" name="27 x 1 3/8">27 x 1 3/8
+     <OPTION value="1" name="27 x 1 1/4">27 x 1 1/4
+     <OPTION value="2" name="27 x 1 1/8">27 x 1 1/8
+     <OPTION value="3" name="27 x 1">27 x 1
+     <OPTION value="4" name="700 x 44">700 x 44
+     <OPTION value="5" name="700 x 38">700 x 38
+     <OPTION value="6" name="700 x 35">700 x 35
+     <OPTION value="7" name="700 x 32">700 x 32
+	<OPTION value="37" name="700 x 30">700 x 30
+     <OPTION SELECTED value="8" name="700 x 28">700 x 28
+     <OPTION value="9" name="700 x 25">700 x 25
+	<OPTION value="35" name="700 x 23">700 x 23
+     <OPTION value="10" name="700 x 20">700 x 20
+	<OPTION value="34" name="20mm tubular">20mm tubular
+	<OPTION value="33" name="23mm tubular">23mm tubular
+     <OPTION value="11" name="25mm tubular">25mm tubular
+     <OPTION value="12" name="28mm tubular">28mm tubular
+     <OPTION value="13" name="650B x 40">650B x 40
+     <OPTION value="14" name="650B x 36">650B x 36
+     <OPTION value="15" name="650B x 33">650B x 33
+     <OPTION value="16" name="650B x 30">650B x 30	 
+	<OPTION value="30" name="29er x 1.9">29er x 1.9
+	<OPTION value="31" name="29er x 2.1">29er x 2.1
+	<OPTION value="32" name="29er x 2.2">29er x 2.2
+     <OPTION value="17" name="26 x 2.125">26 x 2.125
+     <OPTION value="18" name="26 x 1.9">26 x 1.9
+     <OPTION value="19" name="26 x 1.5">26 x 1.5
+     <OPTION value="20" name="26 x 1.25">26 x 1.25
+     <OPTION value="21" name="26 x 1.0 = 559mm">26 x 1.0 = 559mm
+     <OPTION value="22" name="650c">650c x 25
+     <OPTION value="23" name="26 x 1 3/8 = 590mm">26 x 1 3/8 = 590mm
+     <OPTION value="24" name="24">24
+     <OPTION value="25" name="24 x 1 = 520mm">24 x 1 = 520mm
+	<OPTION value="36" name="20 x 1.5 = 406mm">20 x 1.5 = 406mm
+     <OPTION value="26" name="20 x 1.75 = 406mm">20 x 1.75 = 406mm
+     <OPTION value="27" name="20 x 1 1/4 = 451mm">20 x 1 1/4 = 451mm
+     <OPTION value="28" name="17 x 1 1/4 = 369mm">17 x 1 1/4 = 369mm
+     <OPTION value="29" name="16 x 1 3/8 = 349mm">16 x 1 3/8 = 349mm
+    </SELECT>
+  </TD>
+  <!-- end of wheel size selection -->
+
+  <!-- start of crank length selection -->
+  <TD>
+    <SELECT NAME="crank" onChange="readCrank()">
+     <OPTION value="130">130
+     <OPTION value="135">135
+     <OPTION value="140">140
+     <OPTION value="145">145
+     <OPTION value="150">150
+     <OPTION value="155">155
+     <OPTION value="160">160
+     <OPTION value="162.5">162.5
+     <OPTION value="165">165
+     <OPTION value="167.5">167.5
+     <OPTION SELECTED value="170">170
+     <OPTION value="172.5">172.5
+     <OPTION value="175">175
+     <OPTION value="177.5">177.5
+     <OPTION value="180">180
+     <OPTION value="182.5">182.5
+     <OPTION value="185">185
+     <OPTION value="190">190
+     <OPTION value="195">195
+     <OPTION value="200">200
+     <OPTION value="205">205
+     <OPTION value="210">210
+     <OPTION value="215">215
+     <OPTION value="220">220
+    </SELECT>
+  </TD>
+  <!-- end of crank length selection -->
+</TR>
+<TR>
+  <TD ALIGN=CENTER COLSPAN=1>
+   <INPUT TYPE="button" VALUE=" - "  onClick="ringMinus('ring0')">
+   <INPUT TYPE="button" VALUE=" + "  onClick="ringPlus('ring0')"><br>
+   <INPUT TYPE="button" VALUE="  X  "  onClick="ringX('ring0')"></TD>
+  <TD ALIGN=CENTER COLSPAN=1>
+   <INPUT TYPE="button" VALUE=" - "  onClick="ringMinus('ring1')">
+   <INPUT TYPE="button" VALUE=" + "  onClick="ringPlus('ring1')"><br>
+   <INPUT TYPE="button" VALUE="  X  "  onClick="ringX('ring1')"></TD>
+  <TD ALIGN=CENTER COLSPAN=1>
+   <INPUT TYPE="button" VALUE=" - "  onClick="ringMinus('ring2')">
+   <INPUT TYPE="button" VALUE=" + "  onClick="ringPlus('ring2')"><br>
+   <INPUT TYPE="button" VALUE="  X  "  onClick="ringX('ring2')"></TD>
+<!-- end of chainring value table -->
+
+<!-- save buttons -->
+  <TD ALIGN=CENTER COLSPAN=2>
+   <INPUT TYPE="button" VALUE="Save"  onClick="saveSet()">
+   <INPUT TYPE="button" VALUE="Recall"  onClick="readSet()">
+   <INPUT TYPE="button" VALUE="Swap"  onClick="swapSet()">
+   <INPUT TYPE="button" VALUE="Bookmark"  onClick="bookmarkSet()">
+  </TD>
+</TR>
+<TR>
+  <TD COLSPAN=4 align=center>
+    Required Front Derailleur 
+	<a href="http://sheldonbrown.com/gloss_ca-g.html#capacity" target="_blank">Capacity</a>: 	
+    <INPUT TYPE=text NAME="frontcap" SIZE=2 style="border: none" readonly>
+  </TD>
+  <TD align="center">
+	<INPUT TYPE="button" VALUE="?"  onClick="window.open('shift_credits.html#HELP')">
+  </TD>
+</TABLE>
+</center>
+
+
+<p>
+<!-- program outputs -->
+<center>
+<!--	Gear table -------------------------------------------
+	ASCII - Label = 1 line, table = 6 lines (one as a divider line)
+	Graphical - 5 lines of text cells 40x20 pixels  = 480x100 pixels  -->
+<div id="gtCanvas" style="position:relative;height:130px;width:700px;">
+  <textarea name="gearTableLabel" rows=1 cols=26 style="overflow:hidden" readonly></textarea>
+  <br>
+  <textarea name="gearTable" rows=6 cols=72 style="overflow:hidden" readonly></textarea>
+</div>
+
+<!-- 	log graph output --------------------------------- -->
+
+<font color="#000099">Semi-Log Graph</font>
+<br>
+<div id="logCanvas" style="position:relative;height:82px;width:800px;">
+  <textarea name="logGraph" rows=5 cols=82 style="overflow:hidden"></textarea></div>
+<br>
+
+<!--
+
+<textarea name="debugarea" rows=30 cols=80>
+Debug
+</textarea>
+<!--
+-->
+
+<!-- 	speed range output ------------------------------ -->
+<font color="#000099">Speed over RPM Range</font><br>
+<font size="0">&nbsp;</font><br><!-- spacing hack-->
+<font color="#000099">RPM Range from </font>
+<INPUT TYPE="button" VALUE=" - "  onClick="lrpmMinus()">
+<input type="text" name="lRPM" size=3 onChange="read_lRPM()">
+<INPUT TYPE="button" VALUE=" + "  onClick="lrpmPlus()">
+<font color="#000099"> to </font>
+<INPUT TYPE="button" VALUE=" - "  onClick="hrpmMinus()">
+<input type="text" name="hRPM" size=3 onChange="read_hRPM()">
+<INPUT TYPE="button" VALUE=" + "  onClick="hrpmPlus()">
+<font color="#000099">RPM</font>
+&nbsp;&nbsp;&nbsp;
+<input type="radio" name="speedRangeButton" onclick="readSpeedRangeType()" checked><font color="#000099">mph</font>
+<input type="radio" name="speedRangeButton" onclick="readSpeedRangeType()"><font color="#000099">kph</font>
+&nbsp;&nbsp;&nbsp;
+<input type="checkbox" name="showgrid" onclick="readGridONoff()" checked><font color="#000099">Grid</font>
+&nbsp;&nbsp;&nbsp;
+<input type="checkbox" name="sortgears" onclick="sortGears()"><font color="#000099">Sort</font>
+<br>
+<div id="speedRangeCanvas" style="position:relative;height:290px;width:800px;">
+<textarea name="rspeed" rows=6 cols=72 style="overflow:hidden" readonly>
+</textarea>
+</div>
+<p>
+
+<!-- 	gain ratio table output ------------------------------ -->
+<font color="#000099">Sheldon Brown's</font> <a href="http://sheldonbrown.com/gain" target="_blank">Gain Ratio</a> 
+<font color="#000099">Chart<br></font>
+<div id="gainCanvas" style="position:relative;height:100px;width:600px;">
+<textarea name="sheldon" rows=6 cols=72 style="overflow:hidden" readonly></textarea>
+</div>
+<p>
+
+<!-- 	rollout table output ------------------------------ -->
+<font color="#000099">Rollout Table</font>
+&nbsp;&nbsp;&nbsp;
+<input type="radio" name="rolloutButton" onclick="readRolloutType()"><font color="#000099">Inches</font>
+<input type="radio" name="rolloutButton" onclick="readRolloutType()"
+ checked ><font color="#000099">Meters</font>
+<br>
+<div id="rollCanvas" style="position:relative;height:100px;width:600px;">
+<textarea name="rollout" rows=6 cols=83 style="overflow:hidden" readonly></textarea>
+</div>
+<p>
+
+<!-- 	speed table output ------------------------------ -->
+<font color="#000099">Speed at </font>
+<INPUT TYPE="button" VALUE=" - "  onClick="rpmMinus()">
+<input type="text" name="RPM" size=3 onChange="readRPM()">
+<INPUT TYPE="button" VALUE=" + "  onClick="rpmPlus()">
+<font color="#000099">RPM</font>
+&nbsp;&nbsp;&nbsp;
+<input type="radio" name="speedButton" onclick="readSpeedType()" checked><font color="#000099">mph</font>
+<input type="radio" name="speedButton" onclick="readSpeedType()"><font color="#000099">kph</font>
+<br>
+<div id="speedCanvas" style="position:relative;height:100px;width:600px;">
+<textarea name="speed" rows=6 cols=72 style="overflow:hidden" readonly></textarea>
+</div>
+<p>
+
+<!--INPUT TYPE="button" VALUE="Bookmark Page"  onClick="bookmark()"-->
+<INPUT TYPE="button" VALUE="Bookmark Gear Set"  onClick="bookmarkSet()">
+<p>
+
+<!-- 	chart type ------------------------------ -->
+<font color="#000099">Choose Chart type: </font>
+&nbsp;&nbsp;&nbsp;
+<input type="radio" name="typeButton" onclick="readDisplayType()"><font color="#000099">ASCII</font>
+<input type="radio" name="typeButton" onclick="readDisplayType()" checked ><font color="#000099">Graphical</font>
+<p>
+<!-- 	highlighting ------------------------------ -->
+<font color="#000099">Enable Highlighting </font>
+<input type="checkbox" name="HiLite" value="ON" onclick="readHighlight()" checked>
+<p>
+<!-- 	URL ------------------------------ -->
+URL &nbsp;<input type="text" name="pageURL" size="80%"">
+
+
+<!-- 	create the jsGraphics objects for each canvas  -->
+<script type="text/javascript">
+<!--
+// gear table canvas
+var grtbl = new jsGraphics("gtCanvas");
+// log graph canvas
+var logtbl = new jsGraphics("logCanvas");
+// speed range table canvas
+var speedrtbl = new jsGraphics("speedRangeCanvas");
+// speed table canvas
+var speedtbl = new jsGraphics("speedCanvas");
+// gain ration canvas
+var gaintbl = new jsGraphics("gainCanvas");
+// rollout table canvas
+var rolltbl = new jsGraphics("rollCanvas");
+//-->
+</script>
+
+</center>
+</form>
+
+<p>
+
+<p>
+<center>
+
+<font size=-2>
+v 4.4.2
+<br>
+Please send comments, suggestions, and bug reports to:<br>
+Mike Sherman at <a href="mailto:wheelwrightmike@gmail.com">wheelwrightmike@gmail.com</a>
+<br>
+Please give my new version a try at <a href="https://mike-sherman.github.io/shift/">https://mike-sherman.github.io/shift</a>
+<br>
+You can look at the <a href="shift_credits.html#CRED">Credits</a>,  <a href="shift_credits.html#HELP" target="_blank">Help</a>, and 
+<a href="shift_credits.html#REV">Revision History</a> for this program.
+</font>
+
+<p>
+Return to <a href="https://sites.google.com/site/wheelwrightmike/home/bicycles">My bike page</a>
+<br>
+Return to <a href="https://sites.google.com/site/wheelwrightmike/home">My main page</a>
+<p>
+</center>
+</body>
+</html>
